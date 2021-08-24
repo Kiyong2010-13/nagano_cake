@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-3">
+      <h3>商品詳細</h3>
+      <%= attachment_image_tag @item, :image, format: 'jpeg', size:'300x300' %>
+    </div>
+    
+    <div class="col-md-8">
+      <div class: "itembox">
+        <label>商品名</label>
+        <%= @item.name %>
+      </div>
+      <div class: "itembox">
+        <label>商品説明</label>
+        <%= @item.introduction %>
+      </div>
+      <div class: "itembox">
+        <label>税込価格<br>(税抜価格)</label>
+        <%= @item.add_tax_price.to_s(:delimited) %>円 (<%= @item.price.to_s(:delimited) %>)円
+      </div>
+      <div class: "itembox">
+        <label>販売ステータス</label>
+        <% if @item.is_active == true %>
+            <span>販売中</span>
+          <% else %>
+            <span>販売停止中</span>
+          <% end %>
+      </div>
+      <%= link_to "編集する", edit_admin_item_path(@item.id), class: "btn btn-success" %>
+    </div>
+    
+</div>

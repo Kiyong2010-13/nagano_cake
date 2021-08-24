@@ -1,0 +1,40 @@
+<h3><%= @customer.full_name %>さんの会員詳細</h3>
+<div class: "customerbox">
+  <label>会員ID</label>
+  <%= @customer.id %>
+</div>
+<div class: "customerbox">
+  <label>氏名</label>
+  <%= @customer.last_name %><%= @customer.first_name %>
+</div>
+<div class: "customerbox">
+  <label>フリガナ</label>
+  <%= @customer.last_name_kana %><%= @customer.first_name_kana %>
+</div>
+<div class: "customerbox">
+  <label>郵便番号</label>
+  <%= @customer.postal_code %>
+</div>
+<div class: "customerbox">
+  <label>住所</label>
+  <%= @customer.address %>
+</div>
+<div class: "customerbox">
+  <label>電話番号</label>
+  <%= @customer.telephone_number %>
+</div>
+<div class: "customerbox">
+  <label>メールアドレス</label>
+  <%= @customer.email %>
+</div>
+<div class: "customerbox">
+  <label>会員ステータス</label>
+  <% if customer.is_deleted == true %>
+    <span>有効</span>
+  <% else %>
+    <span>無効</span>
+  <% end %>
+</div>
+<%= link_to "編集する", class: "btn btn-success" %>
+<span></span>
+<%= link_to "注文履歴一覧を見る", class: "btn btn-primary" %>

@@ -16,4 +16,8 @@ ja:
         waiting_production: '制作待ち'
         making: '制作中'
         production_completed: '制作完了'
-        
+  
+  activerecord:
+  errors:
+    messages:
+      record_invalid: "バリデーションに失敗しました: %{errors}"
