@@ -1,6 +1,10 @@
 <h3>マイページ</h3>
 
-<p>登録情報</p><%= link_to '編集する', customers_edit_path, class: 'btn btn-success' %>
+<p class="showbox">
+    <strong>登録情報</strong>
+    <%= link_to '編集する', customers_my_page_edit_path, class: 'btn btn-success' %>
+</p>
+
 <table class="table">
     <tbody>
         <tr>
@@ -30,5 +34,11 @@
     </tbody>
 </table>
 
-<p>配送先</p><%= link_to '一覧を見る',  class: 'btn btn-primary' %>
-<p>注文履歴</p><%= link_to '一覧を見る',  class: 'btn btn-primary' %>
+<p class="showbox">
+    <strong>配送先</strong>
+    <%= link_to '一覧を見る', addresses_path, class: "btn btn-primary" %>
+</p>
+<p class="showbox">
+    <strong>注文履歴</strong>
+    <%= link_to '一覧を見る', class: "btn btn-primary" %>
+</p>
