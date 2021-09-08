@@ -55,7 +55,12 @@
              <% subtotal = (order_detali.item.add_tax_price*order_detali.amount).to_i %>
              <%= subtotal.to_s(:delimited) %>
            </td>
-           <td><%= order_detali.making_status_i18n %></td>
+           <td>
+             <%= form_with model: order_detali, url:admin_order_order_detali_path(order_detali.order.id,order_detali.id), method: :patch,  local: true do |f| %>
+              <%= f.select :making_status, options_for_select(OrderDetali.making_statuses_i18n.invert, selected: f.object.making_status),  { class: 'form-control', id: 'order_detali_making_status' } %>
+              <%= f.submit "更新", class: 'btn btn-success btn-sm' %>
+             <% end %>
+           </td>
          </tr>
          <% total += (order_detali.item.add_tax_price*order_detali.amount) %>
         <% end %>
