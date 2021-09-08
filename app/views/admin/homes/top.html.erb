@@ -4,17 +4,22 @@
     <tr>
       <th>購入日時</th>
       <th>購入者</th>
-      <th>メールアドレス</th>
+      <th>注文個数</th>
       <th>ステータス</th>
     </tr>
   </thead>
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.created_at %></td>
-        <td><%= order.full_name %></td>
-        <td><%= order.email %></td>
-        
+        <td>
+          <%= link_to admin_order_path(order.id) do %>
+           <%= order.created_at %>
+          <% end %>
+        </td>
+        <td><%= order.name %></td>
+        <td><%= order.order_detalis.all.sum(:amount) %>
+        </td>
+        <td><%= order.status_i18n %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,77 @@
+<h4>注文情報確認</h4><tr>
+  <div class='row'>
+    <div class='col-7 offset-1'>
+      <table class="table">
+        <tr>
+          <th>商品名</th>
+          <th>単価(税込)</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+         <% total = 0 %>
+            <% @cart_items.each do |cart_item| %>
+              <tr>
+                <td>
+                  <%= attachment_image_tag cart_item.item, :image, format: 'jpeg', size:'60x50' %>
+                  <%= cart_item.item.name %>
+                </td>
+                <td><%= cart_item.item.add_tax_price.to_s(:delimited) %></td>
+                <td><%= cart_item.amount %></td>
+                <td>
+                  <% subtotal = (cart_item.item.add_tax_price*cart_item.amount).to_i %>
+                  <%= subtotal.to_s(:delimited) %>
+                 </td>
+               </tr>
+               <% total += (cart_item.item.add_tax_price*cart_item.amount) %>
+           <% end %>
+      </table>
+    </div>
+
+    <div class='col-3'>
+      <table class="table">
+           <tr>
+             <th>送料</th>
+              <% @order.shipping_cost = 800 %>
+             <td><%= @order.shipping_cost %></td>
+            </tr>
+           <tr>
+             <th>商品合計</th>
+             <td><%= total.to_i.to_s(:delimited) %></td>
+            </tr>
+            <tr>
+              <th>請求金額</th>
+              <% @order.total_payment = @order.shipping_cost + total.to_i %>
+              <td><%= @order.total_payment.to_s(:delimited) %></td>
+            </tr>
+      </table>
+    </div>
+ </div>
+ <div class="row">
+   <div class='col-10 offset-1'>
+      <table>
+        <tr>
+          <th>支払方法</th>
+          <td><%= @order.payment_method_i18n %></td>
+        <tr>
+          <th>お届け先</th>
+          <td>
+            <%= @order.postal_code %>
+            <%= @order.address %>
+            <%= @order.name %>
+          </td>
+        </tr>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+       <%= f.hidden_field :customer_id %>
+       <%= f.hidden_field :shipping_cost %>
+       <%= f.hidden_field :total_payment %>
+       <%= f.hidden_field :payment_method %>
+       <%= f.hidden_field :name %>
+       <%= f.hidden_field :address %>
+       <%= f.hidden_field :postal_code %>
+       <%= f.hidden_field :status %>
+      <%= f.submit "注文を確定する", class: "btn btn-success" %>
+     <% end %>
+ </div>
